@@ -1,0 +1,15 @@
+- name: Installing additional software
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+  vars:
+    packages:
+    - git
+    - vim
+    - python-pip
+
+- name: Adding bashrc
+  copy: src=../files/bash.bashrc dest=/etc/bash.bashrc owner=root group=root mode=0644
+
+- name: Removing standard bashrc
+  shell: creates=/root/.bashrc_backup mv /root/.bashrc /root/.bashrc_backup
