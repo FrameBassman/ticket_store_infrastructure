@@ -6,6 +6,7 @@
     packages:
     - git
     - vim
+    - curl
     - python-pip
 
 - name: Adding bashrc
