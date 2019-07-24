@@ -19,6 +19,11 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits:
+          memory: 128M
 
   logstash:
     image: docker.elastic.co/logstash/logstash:7.2.0
@@ -37,6 +42,9 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+      resources:
+        limits:
+          memory: 128M
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.2.0
