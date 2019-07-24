@@ -13,7 +13,7 @@ services:
       - 9200:9200
       - 9300:9300
     environment:
-      ES_JAVA_OPTS: "-Xmx64m -Xms64m"
+      ES_JAVA_OPTS: "-Xmx128m -Xms128m"
       ELASTIC_PASSWORD: vcBeC49LzP6NEtpb
     networks:
       - elk
@@ -30,7 +30,7 @@ services:
       - 5000:5000
       - 9600:9600
     environment:
-      LS_JAVA_OPTS: "-Xmx64m -Xms64m"
+      LS_JAVA_OPTS: "-Xmx128m -Xms128m"
     networks:
       - elk
     depends_on:
