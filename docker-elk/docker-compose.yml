@@ -1,24 +1,24 @@
 version: '3.6'
 
 services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
-    ports:
-      - 9200:9200
-      - 9300:9300
-    configs:
-      - source: elastic_config
-        target: /usr/share/elasticsearch/config/elasticsearch.yml
-    environment:
-      ES_JAVA_OPTS: "-Xmx128m -Xms128m"
-      ELASTIC_PASSWORD: vcBeC49LzP6NEtpb
-    volumes:
-      - /opt/elasticsearch/data:/usr/share/elasticsearch/data
-    networks:
-      - elk
-    deploy:
-      mode: replicated
-      replicas: 1
+  # elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+  #   ports:
+  #     - 9200:9200
+  #     - 9300:9300
+  #   configs:
+  #     - source: elastic_config
+  #       target: /usr/share/elasticsearch/config/elasticsearch.yml
+  #   environment:
+  #     ES_JAVA_OPTS: "-Xmx128m -Xms128m"
+  #     ELASTIC_PASSWORD: vcBeC49LzP6NEtpb
+  #   volumes:
+  #     - /opt/elasticsearch/data:/usr/share/elasticsearch/data
+  #   networks:
+  #     - elk
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
 
   logstash:
     image: docker.elastic.co/logstash/logstash:7.2.0
@@ -38,18 +38,18 @@ services:
       mode: replicated
       replicas: 1
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.2.0
-    ports:
-      - 5601:5601
-    configs:
-      - source: kibana_config
-        target: /usr/share/kibana/config/kibana.yml
-    networks:
-      - elk
-    deploy:
-      mode: replicated
-      replicas: 1
+  # kibana:
+  #   image: docker.elastic.co/kibana/kibana:7.2.0
+  #   ports:
+  #     - 5601:5601
+  #   configs:
+  #     - source: kibana_config
+  #       target: /usr/share/kibana/config/kibana.yml
+  #   networks:
+  #     - elk
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
 
 configs:
 
@@ -59,8 +59,8 @@ configs:
     file: ./logstash/config/logstash.yml
   logstash_pipeline:
     file: ./logstash/pipeline/logstash.conf
-  kibana_config:
-    file: ./kibana/config/kibana.yml
+  # kibana_config:
+  #   file: ./kibana/config/kibana.yml
 
 networks:
   elk:
