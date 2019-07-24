@@ -12,6 +12,8 @@ services:
     environment:
       ES_JAVA_OPTS: "-Xmx128m -Xms128m"
       ELASTIC_PASSWORD: vcBeC49LzP6NEtpb
+    volumes:
+      - /opt/elasticsearch/data:/usr/share/elasticsearch/data
     networks:
       - elk
     deploy:
