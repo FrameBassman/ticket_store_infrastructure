@@ -2,74 +2,54 @@ version: '3.6'
 
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - /opt/elasticsearch/data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
       - 9300:9300
-    configs:
-      - source: elastic_config
-        target: /usr/share/elasticsearch/config/elasticsearch.yml
     environment:
       ES_JAVA_OPTS: "-Xmx128m -Xms128m"
       ELASTIC_PASSWORD: vcBeC49LzP6NEtpb
-    volumes:
-      - /opt/elasticsearch/data:/usr/share/elasticsearch/data
     networks:
       - elk
-    deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints: [node.role == manager]
-      resources:
-        limits:
-          memory: 128M
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.2.0
+    build:
+      context: logstash/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
     ports:
       - 5000:5000
       - 9600:9600
-    configs:
-      - source: logstash_config
-        target: /usr/share/logstash/config/logstash.yml
-      - source: logstash_pipeline
-        target: /usr/share/logstash/pipeline/logstash.conf
     environment:
       LS_JAVA_OPTS: "-Xmx128m -Xms128m"
     networks:
       - elk
-    deploy:
-      mode: replicated
-      replicas: 1
-      resources:
-        limits:
-          memory: 128M
+    depends_on:
+      - elasticsearch
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.2.0
+    build:
+      context: kibana/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
     ports:
       - 5601:5601
-    configs:
-      - source: kibana_config
-        target: /usr/share/kibana/config/kibana.yml
     networks:
       - elk
-    deploy:
-      mode: replicated
-      replicas: 1
-
-configs:
-
-  elastic_config:
-    file: ./elasticsearch/config/elasticsearch.yml
-  logstash_config:
-    file: ./logstash/config/logstash.yml
-  logstash_pipeline:
-    file: ./logstash/pipeline/logstash.conf
-  kibana_config:
-    file: ./kibana/config/kibana.yml
+    depends_on:
+      - elasticsearch
 
 networks:
   elk:
-    driver: overlay
+    driver: bridge
