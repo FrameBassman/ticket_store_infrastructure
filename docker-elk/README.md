@@ -1,7 +1,7 @@
 # Elastic stack (ELK) on Docker
 
 [![Join the chat at https://gitter.im/deviantony/docker-elk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/deviantony/docker-elk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Elastic Stack version](https://img.shields.io/badge/ELK-7.2.0-blue.svg?style=flat)](https://github.com/deviantony/docker-elk/issues/409)
+[![Elastic Stack version](https://img.shields.io/badge/ELK-7.2.1-blue.svg?style=flat)](https://github.com/deviantony/docker-elk/issues/421)
 [![Build Status](https://api.travis-ci.org/deviantony/docker-elk.svg?branch=master)](https://travis-ci.org/deviantony/docker-elk)
 
 Run the latest version of the [Elastic stack][elk-stack] with Docker and Docker Compose.
@@ -15,9 +15,9 @@ features](#how-to-disable-paid-features) to disable them). The [trial license][t
 
 Based on the official Docker images from Elastic:
 
-* [elasticsearch](https://github.com/elastic/elasticsearch-docker)
-* [logstash](https://github.com/elastic/logstash-docker)
-* [kibana](https://github.com/elastic/kibana-docker)
+* [Elasticsearch](https://github.com/elastic/elasticsearch/tree/master/distribution/docker)
+* [Logstash](https://github.com/elastic/logstash/tree/master/docker)
+* [Kibana](https://github.com/elastic/kibana/tree/master/src/dev/build/tasks/os_packages/docker_generator)
 
 Other available stack variants:
 
@@ -62,7 +62,7 @@ Other available stack variants:
 
 * [Docker](https://www.docker.com/community-edition#/download) version **17.05+**
 * [Docker Compose](https://docs.docker.com/compose/install/) version **1.6.0+**
-* 1 GB of RAM
+* 1.5 GB of RAM
 
 By default, the stack exposes the following ports:
 * 5000: Logstash TCP input
@@ -183,7 +183,7 @@ Create an index pattern via the Kibana API:
 ```console
 $ curl -XPOST -D- 'http://localhost:5601/api/saved_objects/index-pattern' \
     -H 'Content-Type: application/json' \
-    -H 'kbn-version: 7.2.0' \
+    -H 'kbn-version: 7.2.1' \
     -u elastic:<your generated elastic password> \
     -d '{"attributes":{"title":"logstash-*","timeFieldName":"@timestamp"}}'
 ```
@@ -391,8 +391,8 @@ instead of `elasticsearch`.
 [kbn-docker]: https://www.elastic.co/guide/en/kibana/current/docker.html
 [ls-docker]: https://www.elastic.co/guide/en/logstash/current/docker-config.html
 
-[log4j-props]: https://github.com/elastic/logstash-docker/tree/master/build/logstash/config
-[esuser]: https://github.com/elastic/elasticsearch-docker/blob/c2877ef/.tedi/template/bin/docker-entrypoint.sh#L9-L10
+[log4j-props]: https://github.com/elastic/logstash/tree/7.3/docker/data/logstash/config
+[esuser]: https://github.com/elastic/elasticsearch/blob/7.3/distribution/docker/src/docker/Dockerfile#L18-L19
 
 [upgrade]: https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-upgrade.html
 
