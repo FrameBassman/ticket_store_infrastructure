@@ -5,14 +5,14 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.2.1
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - 9200:9200
+      - 9300:9300
     configs:
       - source: elastic_config
         target: /usr/share/elasticsearch/config/elasticsearch.yml
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      ELASTIC_PASSWORD: changeme
+      ELASTIC_PASSWORD: p8uwU9ybn4G2JMSH
     volumes:	
       - /opt/elasticsearch/data:/usr/share/elasticsearch/data
     networks:
@@ -42,7 +42,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:7.2.1
     ports:
-      - "5601:5601"
+      - 5601:5601
     configs:
       - source: kibana_config
         target: /usr/share/kibana/config/kibana.yml
