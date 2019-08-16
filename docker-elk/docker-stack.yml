@@ -25,26 +25,26 @@ services:
         limits:
           memory: 128M
 
-  logstash:
-    image: docker.elastic.co/logstash/logstash:7.2.0
-    ports:
-      - 5000:5000
-      - 9600:9600
-    configs:
-      - source: logstash_config
-        target: /usr/share/logstash/config/logstash.yml
-      - source: logstash_pipeline
-        target: /usr/share/logstash/pipeline/logstash.conf
-    environment:
-      LS_JAVA_OPTS: "-Xmx128m -Xms128m"
-    networks:
-      - elk
-    deploy:
-      mode: replicated
-      replicas: 1
-      resources:
-        limits:
-          memory: 128M
+  # logstash:
+  #   image: docker.elastic.co/logstash/logstash:7.2.0
+  #   ports:
+  #     - 5000:5000
+  #     - 9600:9600
+  #   configs:
+  #     - source: logstash_config
+  #       target: /usr/share/logstash/config/logstash.yml
+  #     - source: logstash_pipeline
+  #       target: /usr/share/logstash/pipeline/logstash.conf
+  #   environment:
+  #     LS_JAVA_OPTS: "-Xmx128m -Xms128m"
+  #   networks:
+  #     - elk
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
+  #     resources:
+  #       limits:
+  #         memory: 128M
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.2.0
