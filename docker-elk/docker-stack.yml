@@ -11,7 +11,7 @@ services:
       - source: elastic_config
         target: /usr/share/elasticsearch/config/elasticsearch.yml
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx512m -Xms512m"
       ELASTIC_PASSWORD: p8uwU9ybn4G2JMSH
     volumes:	
       - /opt/elasticsearch/data:/usr/share/elasticsearch/data
