@@ -3,5 +3,5 @@
 - Install ansible
 - Run 
 ```
-ansible-playbook -K playbook.yml
+ansible-playbook -K playbooks/server.yml
 ```
